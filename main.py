@@ -252,31 +252,34 @@ def game_over():
     btnExit.config(command=g_exit)
     btnExit.pack()
 
-
-screen = Tk()
-
-screen.title("!!! SNAKE GAME !!!")
-screen.resizable(False, False)
-
-score = 0
-StartSpeed = 125.0
-direction = "down"
-btnRestart_Pressed = False
-HighScore = 0
-NewScore = 0
-
-canvas = Canvas(screen, bg="#F0F0F0", height=250, width=250)
-canvas.pack()
-
-screen.update()
-
-screen.bind('<Left>', lambda event: change_direction('left'))
-screen.bind('<Right>', lambda event: change_direction('right'))
-screen.bind('<Up>', lambda event: change_direction('up'))
-screen.bind('<Down>', lambda event: change_direction('down'))
-
-snake = Snake()
-food = Food()
-next_turn(snake, food)
-
-screen.mainloop()
+try:
+    screen = Tk()
+    
+    screen.title("!!! SNAKE GAME !!!")
+    screen.resizable(False, False)
+    
+    score = 0
+    StartSpeed = 125.0
+    direction = "down"
+    btnRestart_Pressed = False
+    HighScore = 0
+    NewScore = 0
+    
+    canvas = Canvas(screen, bg="#F0F0F0", height=250, width=250)
+    canvas.pack()
+    
+    screen.update()
+    
+    screen.bind('<Left>', lambda event: change_direction('left'))
+    screen.bind('<Right>', lambda event: change_direction('right'))
+    screen.bind('<Up>', lambda event: change_direction('up'))
+    screen.bind('<Down>', lambda event: change_direction('down'))
+    
+    snake = Snake()
+    food = Food()
+    next_turn(snake, food)
+    
+    screen.mainloop()
+except TclError:
+    # Handle no display available (headless environment)
+    print("No display environment available. Running in headless mode.")
