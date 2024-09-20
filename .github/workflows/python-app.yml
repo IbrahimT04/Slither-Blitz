@@ -25,13 +25,18 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    # Start Xvfb virtual display
+    # Install Xvfb and set up virtual display
     - name: Install Xvfb and start virtual display
       run: |
         sudo apt-get install xvfb
         Xvfb :99 -screen 0 1024x768x16 &
-        export DISPLAY=:99
+        echo "Display: $DISPLAY"
+      env:
+        DISPLAY: ":99"
 
+    # Run the Python script within the virtual display environment
     - name: Test game run
       run: |
         python main.py
+      env:
+        DISPLAY: ":99"
